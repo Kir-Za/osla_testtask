@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Тестовое задание для OSLA</h1>
+    <p>
+        {% if user.is_authenticated %}
+            {% if user.customerprofile.customer_avatar %}
+            {% load static %}
+            <img src="{% get_media_prefix %}{{ user.customerprofile.customer_avatar }}">
+            {% endif %}
+        <p>Вы вошли как пользователь {{ user.first_name }} {{ user.last_name }}</p>
+        {% else %}
+        <p>Пройдите регистрацию или залогиньтесь.</p>
+        {% endif %}
+    </p>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+    <table align="center">
+        <tr>
+            <td>
+                <form action="{% url 'tasklist_page' %}" method="get">
+                <label for="filter">Фильтровать по статусу задачи</label>
+                <select name="filter">
+                {% for status in filter_data %}
+                    <option value="{{ status.id }}">{{ status }}</option>
+                {% endfor %}
+                </select>
+                <input type="submit" value="Выбрать фильтр"/>
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'tasklist_page' %}" method="get">
+                <input type="submit" value="Сброс фильтра" />
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <table align="center">
+        {% if tasks %}
+            <tr>
+                <th>Задача</th>
+                <th><br></th>
+                <th>Статус задачи</th>
+            </tr>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <th><br></th>
+                <td>{{ task.status }}</td>
+            </tr>
+    {% endfor %}
+        {% else %}
+            <tr><td>У данного пользователя нет задач</td></tr>
+        {% endif %}
+    </table>
+
+    <table align="center">
+        <tr>
+            <td>
+                {% if is_paginated %}
+                    <p class="pagination">
+                    {% for i in paginator.page_range %}
+                        {% if page_obj.number == i %}
+                            <span class="active"><span>{{ i }} <span class="sr-only">(текущая)</span></span></span>
+                        {% else %}
+                            {% if status_filter %}
+                                <span><a href="?page={{ i }}&filter={{ status_filter }}">{{ i }}</a></span>
+                            {% else %}
+                                <span><a href="?page={{ i }}" >{{ i }}</a></span>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+{% endblock %}

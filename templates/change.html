@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <table align="center">
+    <tr>
+        <td>
+            {% if user.customerprofile.customer_avatar %}
+            {% load static %}
+            <img src="{% get_media_prefix %}{{ user.customerprofile.customer_avatar }}">
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Изменить</button>
+            <form action="/">
+                <input type="submit" value="Отмена" />
+            </form>
+            </form>
+        </td>
+    </tr>
+    </table>
+{% endblock %}

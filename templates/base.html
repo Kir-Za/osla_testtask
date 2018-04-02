@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to OSLA test task</title>
+    {% load staticfiles %}
+</head>
+<body>
+    <div>
+    <table width="100%">
+        <tr>
+            <td><a href="{% url 'registration_page' %}">Регистрация нового пользователя</a><br></td>
+            {%  if user.is_authenticated %}
+                <td><a href="{% url 'change_page' %}">Изменение пользовательстких данных</a><br></td>
+                <td><a href="{% url 'tasklist_page' %}">Список задач</a><br></td>
+                <td><a href="{% url 'logout_page' %}">Выход</a></td>
+            {% else %}
+                <td><a href="{% url 'login_page' %}">Вход</a></td>
+            {% endif %}
+        </tr>
+    </table>
+     <hr>
+    </div>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
